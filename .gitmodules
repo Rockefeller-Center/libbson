@@ -1,0 +1,3 @@
+[submodule "libbson-sys/mongo-c-driver"]
+	path = libbson-sys/mongo-c-driver
+	url = https://github.com/mongodb/mongo-c-driver.git
