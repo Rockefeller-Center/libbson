@@ -1,0 +1,12 @@
+[package]
+name = "libbson"
+version = "1.23.0"
+edition = "2021"
+
+[features]
+default = ["std"]
+alloc = []
+std = ["alloc"]
+
+[dependencies]
+libbson-sys = { path = "../libbson-sys" }
