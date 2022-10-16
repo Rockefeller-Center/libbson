@@ -7,6 +7,19 @@ use core::str::FromStr;
 #[derive(Clone, Copy)]
 pub struct Decimal128(libbson_sys::bson_decimal128_t);
 
+impl Decimal128 {
+    /// Converts a BSON `Decimal128` into its little-endian byte representation.
+    pub fn to_bytes(&self) -> [u8; 16] {
+        let mut bytes = [0; 16];
+
+        let (high, low) = bytes.split_at_mut(8);
+        high.copy_from_slice(&self.0.high.to_le_bytes());
+        low.copy_from_slice(&self.0.low.to_le_bytes());
+
+        bytes
+    }
+}
+
 #[cfg(feature = "alloc")]
 impl Debug for Decimal128 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
