@@ -10,7 +10,7 @@ pub struct Decimal128(libbson_sys::bson_decimal128_t);
 impl Decimal128 {
     /// Constructs a BSON `Decimal128` from a little-endian byte representation.
     pub fn from_bytes(bytes: [u8; 16]) -> Self {
-        let (high, low) = bytes.split_at(8);
+        let (low, high) = bytes.split_at(8);
 
         Self(libbson_sys::bson_decimal128_t {
             high: u64::from_le_bytes({
@@ -32,7 +32,7 @@ impl Decimal128 {
     pub fn to_bytes(&self) -> [u8; 16] {
         let mut bytes = [0; 16];
 
-        let (high, low) = bytes.split_at_mut(8);
+        let (low, high) = bytes.split_at_mut(8);
         high.copy_from_slice(&self.0.high.to_le_bytes());
         low.copy_from_slice(&self.0.low.to_le_bytes());
 
